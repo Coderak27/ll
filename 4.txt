@@ -1,0 +1,33 @@
+#nqueens - backtracking
+def nqueens():
+    def isSafe(row, col, queens):
+        for r, c in queens:
+            if row == r or col == c or row - col == r - c or row + col == r + c:
+                return False
+        return Truea
+
+    def backtrack(queens, row):
+        if row == board_size:
+            return queens
+        for col in range(board_size):
+            if isSafe(row, col, queens):
+                queens.append((row, col))
+                result = backtrack(queens, row + 1)
+                if result:
+                    return result
+                queens.pop()
+
+    board_size = 4  # Board size
+    queens = []
+    result = backtrack(queens, 0)
+
+    if result:
+        board = [[0 for _ in range(board_size)] for _ in range(board_size)]
+        for r, c in result:
+            board[r][c] = 1
+        for row in board:
+            print(' '.join(map(str, row)))
+    else:
+        print("Solution does not exist")
+
+nqueens()
